@@ -8,7 +8,7 @@ LIVE_PORT_SERVER, LIVE_PORT_NUMBER = sockets.start_server()
 
 @app.route('/')
 def main():
-    return "hello world";
+    return render_template('index.html')
 
 @app.route("/live_connect", methods = ['GET'])
 def live_connect():
