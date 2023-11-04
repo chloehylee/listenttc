@@ -1,5 +1,5 @@
 from flask import Flask,request
-import sockets
+from flask_socketio import SocketIO as socketio
 
 app = Flask(__name__)
 
@@ -7,9 +7,10 @@ app = Flask(__name__)
 def main():
     return "hello world";
 
-@app.route('/connect_to_socket', methods = ['POST'])
-def connect_to_socket():
-    sockets.connect_to_live_server()
+@socketio.on('audio_data')
+def handle_audio(audio_data):
+    # Process and send audio data as needed
+    socketio.emit('audio_response', audio_data, broadcast=True)
 
 
 
