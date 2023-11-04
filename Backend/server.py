@@ -1,9 +1,16 @@
-from flask import Flask
+from flask import Flask,request
+import sockets
+
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return '<h1>Hello world</h1>!'
+def main():
+    return "hello world";
+
+@app.route('/connect_to_socket', methods = ['POST'])
+def connect_to_socket():
+    sockets.connect_to_live_server()
+
 
 
 if __name__ == "__main__":
