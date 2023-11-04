@@ -1,17 +1,18 @@
-from flask import Flask,request
-from flask_socketio import SocketIO as socketio
+from flask import Flask, request, render_template
+import sockets
+import whisper
 
 app = Flask(__name__)
+LIVE_PORT_SERVER, LIVE_PORT_NUMBER = sockets.start_server()
+
 
 @app.route('/')
 def main():
     return "hello world";
 
-@socketio.on('audio_data')
-def handle_audio(audio_data):
-    # Process and send audio data as needed
-    socketio.emit('audio_response', audio_data, broadcast=True)
-
+@app.route("/live_connect", methods = ['GET'])
+def live_connect():
+    return (LIVE_PORT_SERVER,LIVE_PORT_NUMBER)
 
 
 if __name__ == "__main__":
