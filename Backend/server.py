@@ -1,9 +1,18 @@
-from flask import Flask
+from flask import Flask, request, render_template
+import sockets
+import whisper
+
 app = Flask(__name__)
+LIVE_PORT_SERVER, LIVE_PORT_NUMBER = sockets.start_server()
+
 
 @app.route('/')
-def hello_world():
-    return '<h1>Hello world</h1>!'
+def main():
+    return "hello world";
+
+@app.route("/live_connect", methods = ['GET'])
+def live_connect():
+    return (LIVE_PORT_SERVER,LIVE_PORT_NUMBER)
 
 
 if __name__ == "__main__":
