@@ -10,7 +10,7 @@ a {
 }
 
 a:hover {
-  color: #d9251c;
+  color: #d1aaa9;
   text-decoration: none;
 }
 
@@ -23,6 +23,12 @@ h6 {
   font-family: "Jost", sans-serif;
 }
 
+li:hover{
+  color: #d1aaa9;
+}
+a:hover{
+  color: #d1aaa9;
+}
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -380,7 +386,7 @@ h6 {
 }
 
 #hero .btn-get-started:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: #d9251c;
 }
 
 #hero .btn-watch-video {
