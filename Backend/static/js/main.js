@@ -197,10 +197,11 @@
   //our code 
   var button = document.getElementById('record-button')
   let url = ""
+  var socket = null;
   
 
   button.addEventListener('click', () => {
-    var socket = new WebSocket('ws://localhost:5000/live')
+    socket = new WebSocket('ws://localhost:5000/live')
     navigator.mediaDevices.getUserMedia({
       audio: true,
       video:false
@@ -210,6 +211,10 @@
       recorder.ondataavailable = event => {
         const blob = event.data
         socket.emit(blob)
+        //if recording, listen for messages 
+        socket.on('message', () => { 
+          //TODO: update sentiment analysis graph / make request to warning API
+        })
       }
       socket.send(stream)
       recorder.start(1000)
@@ -219,15 +224,12 @@
     })
   });
 
-  socket.on('message', () => { 
-    //TODO: update sentiment analysis graph / make request to warning API
-  })
 
-  window.onload(() => {
-    setTimeout(() => {
-      document.getElementByID("#preloader").remove()
-    }, 3000)
-  })
+  window.onload = function () {
+    console.log("Hello WOrld")
+    setTimeout(() => {document.getElementById("preloader").remove()},1000)
+  }
+  
 
   
 
