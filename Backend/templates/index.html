@@ -62,7 +62,7 @@
           <h1>Welcome to TTC Safety</h1>
           <h2>Subtitle here</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <button id="emergencyButton" class="btn-get-started scrollto">Emergency1</button>
             <a href="https://ttc.ca/'" class="glightbox btn-watch-video"><i class="bi bi-mic"></i><span>Start Recording</span></a>
           </div>
         </div>
@@ -91,7 +91,34 @@
   
   <!-- Template Main JS File -->
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Add an event listener to the "Emergency" button
+      document.getElementById("emergencyButton").addEventListener("click", function() {
+        // Send an AJAX request to your Flask backend
+        fetch("/send_sms", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phoneNumber: "+16477631216", // Replace with your desired phone number
+          }),
+        })
+          .then(function(response) {
+            if (response.ok) {
+              alert("Emergency SMS sent!");
+            } else {
+              alert("Failed to send the SMS1");
+            }
+          })
+          .catch(function(error) {
+            console.error(error);
+            alert("Failed to send the SMS2.");
+          });
+      });
+    });
+  </script>
 </body>
 
 </html>
