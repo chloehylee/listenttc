@@ -45,7 +45,7 @@
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">TTC Safety</a></h1>
-      <a href="index.html" class="logo me-auto"><img src="assets/img/TTC-LOGO.png" alt="" class="img-fluid"></a>
+      <a href="index.html" class="logo me-auto"><img src="{{ url_for('static', filename='img/TTC-LOGO.png') }}" alt="" class="img-fluid"></a>
 
       <nav id="navbar" class="navbar">
         <ul>
@@ -67,11 +67,11 @@
           <h2>Subtitle here</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
-            <a href="https://ttc.ca/" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Start Recording</span></a>
+            <a href="https://ttc.ca/'" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Start Recording</span></a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 placeholder" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/placeholder.png" class="img-fluid animated" alt="">
+          <img src="{{ url_for('static',filename='img/placeholder.png') }}" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
