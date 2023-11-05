@@ -1,21 +1,21 @@
-from google.cloud import language
+# from google.cloud import language
 
-from google.oauth2 import service_account
+# from google.oauth2 import service_account
 
-service_account_file = 'place_holder'  #service account key 
+# service_account_file = 'place_holder'  #service account key 
 
-# Create a client for the Natural Language API
-credentials = service_account.Credentials.from_service_account_file(service_account_file)
-client = language.LanguageServiceClient(credentials=credentials)
+# # Create a client for the Natural Language API
+# credentials = service_account.Credentials.from_service_account_file(service_account_file)
+# client = language.LanguageServiceClient(credentials=credentials)
 
-text_to_analyze = "Backend\transcription.text.txt"  #  MIGHT BE WRONG FILE 
+# text_to_analyze = "Backend\transcription.text.txt"  #  MIGHT BE WRONG FILE 
 
-# Analyzing the sentiment
-document = language.Document(content=text_to_analyze, type_=language.Document.Type.PLAIN_TEXT)
-sentiment = client.analyze_sentiment(request={'document': document})
+# # Analyzing the sentiment
+# document = language.Document(content=text_to_analyze, type_=language.Document.Type.PLAIN_TEXT)
+# sentiment = client.analyze_sentiment(request={'document': document})
 
-def scores() -> any:   # need to fix this function 
-    return sentiment.document_sentiment.score
+# def scores() -> any:   # need to fix this function 
+#     return sentiment.document_sentiment.score
 
 
 
