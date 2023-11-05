@@ -2,7 +2,7 @@ import socket
 import threading
 
 SOCKET_IP = "127.0.0.1"
-SOCKET_PORT = 6000
+SOCKET_PORT = 5000
 server = None
 client = None
 

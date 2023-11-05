@@ -1,10 +1,10 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-app = Flask(__name)
+app = Flask(__name__)
 
 # Your Twilio Account SID and Auth Token
 TWILIO_ACCOUNT_SID = "ACc7f94c592438bdedb764d05ae4d5b536"
@@ -15,6 +15,7 @@ twilio_client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/send_sms', methods=['POST'])
 def send_sms():
     try:
@@ -35,4 +36,5 @@ def send_sms():
         return jsonify({"status": "error", "message": str(e)}, 500)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    app.run(debug=True, port=5000)
