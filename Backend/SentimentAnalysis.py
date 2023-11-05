@@ -1,5 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
+import os
+
 
 # Load the model and tokenizer
 tokenizer = AutoTokenizer.from_pretrained("lxyuan/distilbert-base-multilingual-cased-sentiments-student")
@@ -11,7 +13,7 @@ sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=token
 word_list = []
 
 
-my_file = open("C:\\Users\\celin\\OneDrive\\Documents\\GitHub\\hello\\transcription.txt", "r") 
+my_file = open("PLACE_HOLDER_LOCATION", "r")  #the file location of the placeholder 
   
 # reading the file 
 data = my_file.read() 
@@ -53,3 +55,5 @@ elif round(total_sum/len(data_into_list), 3) < -5:
     print(-4.999)
 else: 
     print(round(total_sum/len(data_into_list), 3))
+    
+os.remove("PLACE_HOLDER_LOCATION")  # will delete this file
