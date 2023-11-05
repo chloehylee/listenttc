@@ -1,5 +1,8 @@
 
-(function() {
+window.onload = (function() {
+
+  setTimeout(() => {document.getElementById("preloader").remove()},1000)
+
   "use strict";
   const select = (el, all = false) => {
     el = el.trim()
@@ -194,4 +197,36 @@
     });
   });
 
-})()
+  //our code 
+  var button = null;
+  console.log("before button select")
+  document.getElementById('record-button')
+  console.log(button)
+  let url = ""
+  var socket = null;
+  
+
+function startRecording() {
+    socket = new WebSocket('ws://localhost:5000/live')
+    console.log("socket went live")
+    navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video:false
+    }).then((stream) => {
+      //encode audio into bytes
+      const recorder = new MediaRecorder(stream)
+      recorder.ondataavailable = event => {
+        const blob = event.data
+        socket.emit(blob)
+        //if recording, listen for messages 
+        socket.on('message', () => { 
+          //TODO: update sentiment analysis graph / make request to warning API
+        })
+      }
+      socket.send(stream)
+      recorder.start(1000)
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+})

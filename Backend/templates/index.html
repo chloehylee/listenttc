@@ -47,31 +47,32 @@
         <ul>
           <li> <h1 class="logo me-auto"><a>TTC Safety</a></h1></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        <button class="bi bi-list mobile-nav-toggle"></button>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
+  <section id="hero" style="overflow-y: scroll">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>Welcome to TTC Safety!</h1>
-          <h2>Your personal security guard</h2>
-          <div class="d-flex justify-content-center justify-content-lg-start">
-            <button id="emergencyButton" class="btn-get-started scrollto">Emergency SMS</button>
-            <a href="https://ttc.ca/'" class="glightbox btn-watch-video"><i class="bi bi-mic"></i><span>Start Recording</span></a>
+        <div class="d-flex col-lg-6 flex-column justify-content-center order-2" data-aos-delay="200">
+          <h1>Welcome to TTC Safety</h1>
+          <h2>Subtitle here</h2>
+          <div style="position: relative; opacity:1" class="d-flex justify-content-center justify-content-lg-start">
+            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <div onclick = "startRecording()" id = "record-button" class="glightbox btn-watch-video"><i class="bi bi-mic"></i><span>Start Recording</span></div>
           </div>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 chart_green_1" data-aos="zoom-in" data-aos-delay="200">
-          <img src="{{ url_for('static',filename='img/chart_green_1.png') }}" class="img-fluid animated" alt="">
+        <div class="col-lg-6 order-1 order-lg-2 chart_green_1" data-aos="zoom-in" data-aos-delay="200" style="opacity:1">
+          <img src="/static/img/chart_green_1.png" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
 
-  </section><!-- End Hero -->
+  </section>
+  
 
   <main id="main">
 
