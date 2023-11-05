@@ -1,44 +1,55 @@
-# from google.cloud import language
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline
 
-# from google.oauth2 import service_account
+# Load the model and tokenizer
+tokenizer = AutoTokenizer.from_pretrained("lxyuan/distilbert-base-multilingual-cased-sentiments-student")
+model = AutoModelForSequenceClassification.from_pretrained("lxyuan/distilbert-base-multilingual-cased-sentiments-student")
 
-# service_account_file = 'place_holder'  #service account key 
+# Create a pipeline for sentiment analysis
+sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
-# # Create a client for the Natural Language API
-# credentials = service_account.Credentials.from_service_account_file(service_account_file)
-# client = language.LanguageServiceClient(credentials=credentials)
-
-# text_to_analyze = "Backend\transcription.text.txt"  #  MIGHT BE WRONG FILE 
-
-# # Analyzing the sentiment
-# document = language.Document(content=text_to_analyze, type_=language.Document.Type.PLAIN_TEXT)
-# sentiment = client.analyze_sentiment(request={'document': document})
-
-# def scores() -> any:   # need to fix this function 
-#     return sentiment.document_sentiment.score
+word_list = []
 
 
+my_file = open("C:\\Users\\celin\\OneDrive\\Documents\\GitHub\\hello\\transcription.txt", "r") 
+  
+# reading the file 
+data = my_file.read() 
+  
+# replacing end of line('/n') with ' ' and 
+# splitting the text it further when '.' is seen. 
+data_into_list = data.replace('\n', ' ').split(" ") 
 
 
+def scale_number(num, original_range, new_range) -> float:
+    original_min, original_max = original_range
+    new_min, new_max = new_range
+    # Scale the number
+    scaled_num = (new_max - new_min) * (num - original_min) / (original_max - original_min) + new_min
+    return scaled_num
 
 
-# print(sentiment.document_sentiment.score)
-
-# import requests
-
-# api_url = ""  # the link to the api 
-# api_key = "your_api_key_here"  
-
-# text_to_analyze = "This is a great product. I love it!"
-
-# headers = {
-#     "Authorization": f"Bearer {api_key}",
-#     "Content-Type": "application/json"
-# }
-
-# data = {
-#     "text": text_to_analyze
-# }
-
-# response = requests.post(api_url, headers=headers, json=data)
-# result = response.json()
+total_sum = 0
+# Your text to analyze
+for word in data_into_list:# here we need to put a url with a text and then split the words\
+    #so that we can check each words
+    text_to_analyze = word
+    # Run sentiment analysis
+    results = sentiment_pipeline(text_to_analyze)
+    # print the result
+    # print(results)
+    score = results[0]['score']
+    if results[0]['label'] == 'negative':
+        score = -score * 8
+    scaled_values = int(scale_number(score, (-1, 1), (-5, 5)))# change the scale from (-1,1) to rank(-5,...,5)
+    # print(scaled_values)
+    total_sum += scaled_values
+        
+    word_list += results
+    
+if round(total_sum/len(data_into_list), 3) > 5:
+    print(4.999)
+elif round(total_sum/len(data_into_list), 3) < -5:
+    print(-4.999)
+else: 
+    print(round(total_sum/len(data_into_list), 3))

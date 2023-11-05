@@ -7,14 +7,11 @@
 import openai
 import os
 openai.api_key = "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"
-audio_file = open("c:\\Users\\celin\\Downloads\\369eef9a-6494-4087-af06-231727fa8a49.wav", "rb")
-transcript = openai.Audio.transcribe("whisper-1", audio_file)
+audio_file = open("c:\\Users\\celin\\Downloads\\369eef9a-6494-4087-af06-231727fa8a49.wav", "rb")  #when this is done, we will render the 
+transcript = openai.Audio.transcribe("whisper-1", audio_file) 
 
 print(transcript)
 
-# with open("transcription.text" "w") as text_file:
-#     text_file.write(transcript["text"])
-# f = open("transcription.txt", 'x')
 with open(os.path.join(os.getcwd(), "transcription.txt"), "w") as text_file:
     text_file.write(transcript["text"])
 
