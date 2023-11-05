@@ -6,20 +6,22 @@
 # Note: you need to be using OpenAI Python v0.27.0 for the code below to work
 import openai
 import os
-#audio_file= open("C:\\Users\\celin\\Downloads\\ea7195ac-828b-429d-8ba5-9bf980e07c32.mp3", "rb")
 openai.api_key = "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"
-audio_file = open("C:\\Users\\celin\\OneDrive\\Documents\\GitHub\\hello\\Backend\\test.mp3", "rb")
+audio_file = open("c:\\Users\\celin\\Downloads\\369eef9a-6494-4087-af06-231727fa8a49.wav", "rb")
 transcript = openai.Audio.transcribe("whisper-1", audio_file)
 
 print(transcript)
 
+# with open("transcription.text" "w") as text_file:
+#     text_file.write(transcript["text"])
+# f = open("transcription.txt", 'x')
+with open(os.path.join(os.getcwd(), "transcription.txt"), "w") as text_file:
+    text_file.write(transcript["text"])
 
 # transcribed_text = result["text"]
 
 # print(transcribed_text)
 
-# with open("transcription.text" "w") as text_file:
-#     text_file.write(result["text"])
 
 
 ####################################################################
