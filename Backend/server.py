@@ -12,6 +12,7 @@ def index():
 @socketio.on('live')
 def index_live(audio_data):
     try:
+        
         with open("audio_as_bytes.txt", 'wb') as f:
             f.write(audio_data)
         return 'Audio data written successfully'

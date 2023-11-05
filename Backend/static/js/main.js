@@ -1,5 +1,8 @@
 
-(function() {
+window.onload = (function() {
+
+  setTimeout(() => {document.getElementById("preloader").remove()},1000)
+
   "use strict";
   const select = (el, all = false) => {
     el = el.trim()
@@ -195,13 +198,17 @@
   });
 
   //our code 
-  var button = document.getElementById('record-button')
+  var button = null;
+  console.log("before button select")
+  document.getElementById('record-button')
+  console.log(button)
   let url = ""
   var socket = null;
   
 
-  button.addEventListener('click', () => {
+function startRecording() {
     socket = new WebSocket('ws://localhost:5000/live')
+    console.log("socket went live")
     navigator.mediaDevices.getUserMedia({
       audio: true,
       video:false
@@ -218,18 +225,8 @@
       }
       socket.send(stream)
       recorder.start(1000)
-      })
     }).catch(err => {
       console.log(err)
     })
-  });
-
-
-  window.onload = function () {
-    console.log("Hello WOrld")
-    setTimeout(() => {document.getElementById("preloader").remove()},1000)
-  }
-  
-
-  
-
+  };
+})
