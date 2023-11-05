@@ -194,4 +194,40 @@
     });
   });
 
-})()
+  //our code 
+  var button = document.getElementById('record-button')
+  let url = ""
+  
+
+  button.addEventListener('click', () => {
+    var socket = new WebSocket('ws://localhost:5000/live')
+    navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video:false
+    }).then((stream) => {
+      //encode audio into bytes
+      const recorder = new MediaRecorder(stream)
+      recorder.ondataavailable = event => {
+        const blob = event.data
+        socket.emit(blob)
+      }
+      socket.send(stream)
+      recorder.start(1000)
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  });
+
+  socket.on('message', () => { 
+    //TODO: update sentiment analysis graph / make request to warning API
+  })
+
+  window.onload(() => {
+    setTimeout(() => {
+      document.getElementByID("#preloader").remove()
+    }, 3000)
+  })
+
+  
+

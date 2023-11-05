@@ -1,23 +1,23 @@
-from flask import Flask, request, render_template
-from flask_bootstrap import Bootstrap
-import sockets
-import whisper
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
-LIVE_PORT_SERVER, LIVE_PORT_NUMBER = sockets.start_server()
-bootstrap = Bootstrap(app)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 
-
-@app.route('/')
-def main():
+@app.route('/', methods=['GET'])
+def index():
     return render_template('index.html')
 
-@app.route("/live_connect", methods = ['GET'])
-def live_connect():
-    return (LIVE_PORT_SERVER,LIVE_PORT_NUMBER)
+@socketio.on('live')
+def index_live(audio_data):
+    try:
+        with open("audio_as_bytes.txt", 'wb') as f:
+            f.write(audio_data)
+        return 'Audio data written successfully'
+    except Exception as e:
+        return 'Error writing audio data: ' + str(e)
+    
 
-
-if __name__ == "__main__":
-    app.run(debug = True)
-
-
+if __name__ == '__main__':
+    socketio.run(app, debug = True)
